@@ -1,0 +1,28 @@
+#!/bin/bash
+#by @biomedical_informatics
+convert_pdf_to_images() {
+    mkdir -p images
+    for pdf in *.pdf;
+        do
+        if [ -e $pdf ]
+        then
+            echo "Starting on $pdf"
+            name="${pdf%.pdf}"
+            convert \
+            -verbose \
+            -density 300 \
+            -trim $pdf \
+            -quality 100 \
+            -flatten \
+            -sharpen 0x1.0 \
+            images/$name.jpg
+        else
+            echo "No PDF files found in the current directory."
+            return 1
+        fi
+    done
+    echo "Images were saved in the image folder"
+}
+convert_pdf_to_images
+
+
